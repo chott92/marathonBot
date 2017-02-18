@@ -1,17 +1,24 @@
 package de.chott.marathonbot;
 
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
 public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppContext.class);
+        FXMLService fXMLService = applicationContext.getBean(FXMLService.class);
+        
+        
+        
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
         
         Scene scene = new Scene(root);
