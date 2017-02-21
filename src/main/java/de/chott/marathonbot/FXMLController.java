@@ -1,7 +1,7 @@
 package de.chott.marathonbot;
 
 import de.chott.marathonbot.service.SingletonServiceFactory;
-import de.chott.marathonbot.service.TestService;
+import de.chott.marathonbot.service.config.CredentialConfigService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -14,16 +14,26 @@ public class FXMLController implements Initializable {
 	@FXML
 	private Label label;
 
-	private TestService testService;
+	private CredentialConfigService credentialConfigService;
 
 	@FXML
 	private void handleButtonAction(ActionEvent event) {
 		System.out.println("You clicked me!");
-		label.setText(testService.getHelloWorld());
+
+		String config = credentialConfigService.getConfig("test");
+		if (config == null) {
+			label.setText("no config found. Setting config");
+			credentialConfigService.setConfig("test", "Hello World!");
+			credentialConfigService.saveConfigToFile();
+		} else {
+			label.setText(config);
+		}
+
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		testService = SingletonServiceFactory.getInstance(TestService.class);
+		credentialConfigService = SingletonServiceFactory.getInstance(CredentialConfigService.class);
+
 	}
 }
