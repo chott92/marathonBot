@@ -5,14 +5,16 @@
 package de.chott.marathonbot.service.config;
 
 import de.chott.marathonbot.service.SingletonService;
+import de.chott.marathonbot.service.SingletonServiceFactory;
+import de.chott.marathonbot.service.util.UtilService;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -21,21 +23,25 @@ import org.json.JSONObject;
  */
 public class CredentialConfigService implements SingletonService {
 
+	private UtilService utilService;
+
 	private File file;
 
 	private JSONObject configJSON;
 
 	public CredentialConfigService() {
-		String filepath = "/credentials.json";
+		utilService = SingletonServiceFactory.getInstance(UtilService.class);
+
+		String filename = "/credentials.json";
 		try {
-			File file = new File(getClass().getResource(filepath).toURI());
+			file = new File(utilService.getAppFolderFilepath() + filename);
 			if (!file.exists()) {
 				file.createNewFile();
 			}
 
 			readFile(file);
 
-		} catch (IOException | URISyntaxException ex) {
+		} catch (IOException ex) {
 
 			Logger.getLogger(CredentialConfigService.class.getName()).log(Level.SEVERE,
 					"Could not initialize CredentialConfigService", ex);
@@ -50,17 +56,26 @@ public class CredentialConfigService implements SingletonService {
 		while ((s = reader.readLine()) != null) {
 			sb.append(s);
 		}
-
-		configJSON = new JSONObject(sb.toString());
+		try {
+			configJSON = new JSONObject(sb.toString());
+		} catch (JSONException ex) {
+			Logger.getLogger(CredentialConfigService.class.getName()).log(Level.WARNING,
+					"config JSON not readable, creating empty config.");
+			configJSON = new JSONObject();
+		}
 
 	}
 
 	public String getConfig(String key) {
-		return configJSON.getString(key);
+		try {
+			return configJSON.getString(key);
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 
 	public void setConfig(String key, String value) {
-		configJSON.append(key, value);
+		configJSON.put(key, value);
 	}
 
 	public void saveConfigToFile() {
