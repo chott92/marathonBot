@@ -2,6 +2,8 @@ package de.chott.marathonbot;
 
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.config.CredentialConfigService;
+import de.chott.marathonbot.util.config.ConfigConstants;
+import static de.chott.marathonbot.util.config.ConfigConstants.TEST;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,10 +22,10 @@ public class FXMLController implements Initializable {
 	private void handleButtonAction(ActionEvent event) {
 		System.out.println("You clicked me!");
 
-		String config = credentialConfigService.getConfig("test");
+		String config = credentialConfigService.getConfig(TEST);
 		if (config == null) {
 			label.setText("no config found. Setting config");
-			credentialConfigService.setConfig("test", "Hello World!");
+			credentialConfigService.setConfig(TEST, "Hello World!");
 			credentialConfigService.saveConfigToFile();
 		} else {
 			label.setText(config);
