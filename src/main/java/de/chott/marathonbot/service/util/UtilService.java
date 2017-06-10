@@ -5,6 +5,12 @@
 package de.chott.marathonbot.service.util;
 
 import de.chott.marathonbot.service.SingletonService;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  *
@@ -21,5 +27,12 @@ public class UtilService implements SingletonService {
 		}
 		return sb.toString();
 	}
+        
+        public void switchScene(Button sourceButton, String targetScene)throws IOException{
+            Stage stage = (Stage) sourceButton.getScene().getWindow();
+            Parent root = FXMLLoader.load(this.getClass().getResource(targetScene));
+            Scene newScene = new Scene(root);
+            stage.setScene(newScene);
+        }
 
 }

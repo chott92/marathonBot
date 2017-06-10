@@ -35,4 +35,9 @@ public class SingletonServiceFactory {
 		}
 	}
 
+        
+        public static void closeServices(){
+            INSTANCES.values().forEach(SingletonService::close);
+        }
+                
 }

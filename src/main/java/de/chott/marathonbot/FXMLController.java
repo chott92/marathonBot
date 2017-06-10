@@ -2,6 +2,7 @@ package de.chott.marathonbot;
 
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.config.CredentialConfigService;
+import de.chott.marathonbot.service.twitch.TwitchChatBotService;
 import de.chott.marathonbot.util.config.ConfigConstants;
 import static de.chott.marathonbot.util.config.ConfigConstants.TEST;
 import java.net.URL;
@@ -24,6 +25,8 @@ public class FXMLController implements Initializable {
 
 		String config = credentialConfigService.getConfig(TEST);
 		if (config == null) {
+                        SingletonServiceFactory.getInstance(TwitchChatBotService.class).sendMessage("Hello World!");
+                        
 			label.setText("no config found. Setting config");
 			credentialConfigService.setConfig(TEST, "Hello World!");
 			credentialConfigService.saveConfigToFile();

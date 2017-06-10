@@ -4,10 +4,10 @@
  */
 package de.chott.marathonbot.service;
 
-/**
- *
- * @author chot
- */
 public interface SingletonService {
 
+    default void close(){
+        
+    }
+    
 }
