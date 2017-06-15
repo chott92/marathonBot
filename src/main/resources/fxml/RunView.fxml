@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="860.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.chott.marathonbot.controller.RunViewController">
+  <children>
+    <TableView layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="860.0" fx:id="runTable">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="160.0" text="Game" fx:id="gameColumn" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Category" fx:id="categoryColumn" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="125.0" text="Runner" fx:id="runnerNameColumn" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="RunnerPB" fx:id="runnerPBColumn" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="125.0" text="WrHolderName" fx:id="wrHolderNameColumn" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="WrTime" fx:id="wrTimeColumn" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="140.0" text="Speedrun.com page" fx:id="speedrunComPageColumn" />
+      </columns>
+    </TableView>
+  </children>
+</AnchorPane>
