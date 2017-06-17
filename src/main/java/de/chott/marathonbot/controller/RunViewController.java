@@ -13,13 +13,16 @@ import de.chott.marathonbot.service.data.RunConfigDataService;
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
+import java.util.function.BiConsumer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 public class RunViewController implements Initializable {
 
@@ -42,15 +45,30 @@ public class RunViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
-        gameColumn.setCellValueFactory(new PropertyValueFactory<>("game"));
-        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-        runnerNameColumn.setCellValueFactory(new PropertyValueFactory<>("runnerName"));
-        wrTimeColumn.setCellValueFactory(new PropertyValueFactory<>("wrTime"));
-        runnerPBColumn.setCellValueFactory(new PropertyValueFactory<>("runnerPB"));
-        wrHolderNameColumn.setCellValueFactory(new PropertyValueFactory<>("wrHolderName"));
-        speedrunComPageColumn.setCellValueFactory(new PropertyValueFactory<>("speedrunComLink"));
+        
+        runTable.setEditable(true);
+        setupColumn(gameColumn, "game", RunConfigTableEntry::setGame);
+        setupColumn(categoryColumn, "category", RunConfigTableEntry::setCategory);
+        setupColumn(runnerNameColumn, "runnerName", RunConfigTableEntry::setRunnerName);
+        setupColumn(wrTimeColumn, "wrTime", RunConfigTableEntry::setWrTime);
+        setupColumn(runnerPBColumn, "runnerPB", RunConfigTableEntry::setRunnerPB);
+        setupColumn(wrHolderNameColumn, "wrHolderName", RunConfigTableEntry::setWrHolderName);
+        setupColumn(speedrunComPageColumn, "speedrunComLink", RunConfigTableEntry::setSpeedrunComLink);
 
         runTable.setItems(SingletonServiceFactory.getInstance(RunConfigDataService.class).getData());
     }
-
+    
+    private void setupColumn (TableColumn<RunConfigTableEntry, String> column, String propertyName,
+                    BiConsumer<RunConfigTableEntry, String> updateFunction){
+        column.setCellValueFactory(new PropertyValueFactory<>(propertyName));
+        column.setCellFactory(TextFieldTableCell.forTableColumn());
+        column.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<RunConfigTableEntry, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<RunConfigTableEntry, String> t) {
+                RunConfigTableEntry entry = (RunConfigTableEntry) t.getTableView()
+                        .getItems().get(t.getTablePosition().getRow());
+                updateFunction.accept(entry, t.getNewValue());
+            }
+        });
+    }
 }

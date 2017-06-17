@@ -14,31 +14,30 @@ import javafx.scene.control.Label;
 
 public class FXMLController implements Initializable {
 
-	@FXML
-	private Label label;
+    @FXML
+    private Label label;
 
-	private CredentialConfigService credentialConfigService;
+    private CredentialConfigService credentialConfigService;
 
-	@FXML
-	private void handleButtonAction(ActionEvent event) {
-		System.out.println("You clicked me!");
+    @FXML
+    private void handleButtonAction(ActionEvent event) {
+        SingletonServiceFactory.getInstance(TwitchChatBotService.class).sendMessage("Dies dürfte sich um eine Überprüfung für eine übertriebene Häufung von Umlauten handeln.");
 
-		String config = credentialConfigService.getConfig(TEST);
-		if (config == null) {
-                        SingletonServiceFactory.getInstance(TwitchChatBotService.class).sendMessage("Hello World!");
-                        
-			label.setText("no config found. Setting config");
-			credentialConfigService.setConfig(TEST, "Hello World!");
-			credentialConfigService.saveConfigToFile();
-		} else {
-			label.setText(config);
-		}
+        String config = credentialConfigService.getConfig(TEST);
+        if (config == null) {
 
-	}
+            label.setText("no config found. Setting config");
+            credentialConfigService.setConfig(TEST, "Hello World!");
+            credentialConfigService.saveConfigToFile();
+        } else {
+            label.setText(config);
+        }
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		credentialConfigService = SingletonServiceFactory.getInstance(CredentialConfigService.class);
+    }
 
-	}
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        credentialConfigService = SingletonServiceFactory.getInstance(CredentialConfigService.class);
+
+    }
 }

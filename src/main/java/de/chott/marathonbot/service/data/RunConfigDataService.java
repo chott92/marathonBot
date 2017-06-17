@@ -5,6 +5,7 @@
  */
 package de.chott.marathonbot.service.data;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.chott.marathonbot.model.RunConfigTableEntry;
 import de.chott.marathonbot.service.SingletonService;
@@ -46,19 +47,22 @@ public class RunConfigDataService implements SingletonService {
 
         } catch (IOException ex) {
 
-            Logger.getLogger(CredentialConfigService.class.getName()).log(Level.SEVERE,
-                    "Could not initialize CredentialConfigService", ex);
+            Logger.getLogger(RunConfigDataService.class.getName()).log(Level.SEVERE,
+                    "Could not initialize RunConfigDataServiceService", ex);
         }
 
     }
 
     private void readFile(File file) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
+        try{
+            ArrayList<LinkedHashMap<String, String>> readValues = mapper.readValue(file, ArrayList.class);
 
-        ArrayList<LinkedHashMap<String, String>> readValues = mapper.readValue(file, ArrayList.class);
-
-        data.addAll(readValues.stream().map(toTableEntry()).collect(toList()));
-        
+            data.addAll(readValues.stream().map(toTableEntry()).collect(toList()));
+        } catch(JsonMappingException e){
+            Logger.getLogger(RunConfigDataService.class.getName()).info(
+                    "Could not read RunData-file. Creating dummy-data");
+        }
         if (data.isEmpty()) {
             //intentional Mockup for testing;
             data.add(new RunConfigTableEntry("Donkey Kong Country Returns", "MrTiger92, Lukas1337", "1:29:39", "1:34:29, 1:34:30", "JXD", "Any%", "speedrun.com/dkcr"));
