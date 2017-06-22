@@ -50,10 +50,11 @@ public class CredentialsConfigController implements Initializable {
                             twitchOauth.getText(),
                             twitchChannel.getText());
             
-            SingletonServiceFactory.getInstance(UtilService.class).switchScene(startButton, "/fxml/Scene.fxml");
+            SingletonServiceFactory.getInstance(UtilService.class).switchScene(startButton, "/fxml/Dashboard.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
 
 }

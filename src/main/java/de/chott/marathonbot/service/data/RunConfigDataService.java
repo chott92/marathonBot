@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.chott.marathonbot.model.RunConfigTableEntry;
 import de.chott.marathonbot.service.SingletonService;
 import de.chott.marathonbot.service.SingletonServiceFactory;
-import de.chott.marathonbot.service.config.CredentialConfigService;
 import de.chott.marathonbot.service.util.UtilService;
 import java.io.File;
 import java.io.IOException;

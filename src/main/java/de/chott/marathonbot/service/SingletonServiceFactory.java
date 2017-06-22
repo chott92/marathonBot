@@ -9,10 +9,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author chot
- */
 public class SingletonServiceFactory {
 
 	private static final Map<Class, SingletonService> INSTANCES = new HashMap<>();

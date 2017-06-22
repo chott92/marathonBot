@@ -15,7 +15,7 @@ public class MainApp extends Application {
 
 		System.out.println(path);
 
-		Parent root = FXMLLoader.load(getClass().getResource("/fxml/RunView.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/fxml/CredentialsConfig.fxml"));
 
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add("/styles/Styles.css");

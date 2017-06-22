@@ -6,6 +6,8 @@
 package de.chott.marathonbot.service.twitch;
 
 import de.chott.marathonbot.service.SingletonService;
+import de.chott.marathonbot.service.SingletonServiceFactory;
+import de.chott.marathonbot.service.data.DashboardDataService;
 import org.jibble.pircbot.PircBot;
 
 public class TwitchChatBotService extends PircBot implements SingletonService{
@@ -40,9 +42,10 @@ public class TwitchChatBotService extends PircBot implements SingletonService{
     
     @Override
     protected void onMessage(String channel, String sender, String login, String hostname, String message){
-        if (message.startsWith("!hello")){
-            sendMessage("Hello " + sender);
-        }
+       if (message.equals("!wr")){
+           sendMessage(SingletonServiceFactory.getInstance(DashboardDataService.class).getWrCommandOutput());
+       }
+        
     }
     
     public void sendMessage(String message){

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="420.0000999999975" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.chott.marathonbot.controller.DashboardController">
+  <children>
+    <TabPane layoutX="0.0" layoutY="0.0" prefHeight="420.0001220703125" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Game-Control">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="389.0001220703125" prefWidth="800.0">
+              <children>
+                <GridPane layoutX="0.0" layoutY="0.0" prefHeight="336.0" prefWidth="800.0">
+                  <children>
+                    <AnchorPane minWidth="267.0" prefHeight="336.0" prefWidth="267.0000999999975" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Last set Game:" />
+                        <Label fx:id="lastGameLabel" layoutX="14.0" layoutY="40.0" text="None" />
+                        <Label layoutX="14.0" layoutY="168.0" text="Current WR Command:" />
+                        <Label fx:id="wrCommandLabel" layoutX="14.0" layoutY="194.0" text="None" />
+                        <Label layoutX="14.0" layoutY="84.0" text="Last set Title:" />
+                        <Label fx:id="lastTitleLabel" layoutX="14.0" layoutY="110.0" text="None" />
+                      </children>
+                    </AnchorPane>
+                    <AnchorPane minHeight="301.0" prefHeight="301.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                      <children>
+                        <ListView fx:id="runOverview" layoutX="0.0" layoutY="0.0" onMouseClicked="#changeRunSelection" prefHeight="336.0" prefWidth="267.0" />
+                      </children>
+                    </AnchorPane>
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                      <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Next Game" />
+                        <TextField fx:id="nextGameInput" layoutX="14.0" layoutY="30.0" prefWidth="238.0" />
+                        <Label layoutX="16.0" layoutY="62.0" text="Next Title" />
+                        <TextField fx:id="nextTitleInput" layoutX="16.0" layoutY="78.0" prefWidth="236.0" />
+                        <Label id="nextWRInput" layoutX="16.0" layoutY="110.0" text="Next WR Command" />
+                        <TextField fx:id="nextWRInput" layoutX="16.0" layoutY="126.0" prefWidth="236.0" />
+                      </children>
+                    </AnchorPane>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+                <Button layoutX="691.0" layoutY="356.0" mnemonicParsing="false" onAction="#changeGame" text="Change Game" />
+                <Button fx:id="editRunListButton" layoutX="451.0" layoutY="356.0" mnemonicParsing="false" onAction="#toRunConfig" text="Edit run List" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Template-Control">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </children>
+</AnchorPane>

@@ -84,4 +84,11 @@ public class RunConfigTableEntry {
     public void setSpeedrunComLink (String newValue){
         this.speedrunComLink.set(newValue);
     }
+
+    @Override
+    public String toString() {
+        return getGame() + " (" + getCategory()+ ") - " + getRunnerName();
+    }
+    
+    
 }
