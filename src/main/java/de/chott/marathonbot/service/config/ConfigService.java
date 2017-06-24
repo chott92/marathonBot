@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -21,7 +22,7 @@ import org.json.JSONObject;
  *
  * @author chot
  */
-public class CredentialConfigService implements SingletonService {
+public class ConfigService implements SingletonService {
 
 	private UtilService utilService;
 
@@ -29,10 +30,10 @@ public class CredentialConfigService implements SingletonService {
 
 	private JSONObject configJSON;
 
-	public CredentialConfigService() {
+	public ConfigService() {
 		utilService = SingletonServiceFactory.getInstance(UtilService.class);
 
-		String filename = "/credentials.json";
+		String filename = "/config.json";
 		try {
 			file = new File(utilService.getAppFolderFilepath() + filename);
 			if (!file.exists()) {
@@ -43,7 +44,7 @@ public class CredentialConfigService implements SingletonService {
 
 		} catch (IOException ex) {
 
-			Logger.getLogger(CredentialConfigService.class.getName()).log(Level.SEVERE,
+			Logger.getLogger(ConfigService.class.getName()).log(Level.SEVERE,
 					"Could not initialize CredentialConfigService", ex);
 		}
 	}
@@ -59,18 +60,18 @@ public class CredentialConfigService implements SingletonService {
 		try {
 			configJSON = new JSONObject(sb.toString());
 		} catch (JSONException ex) {
-			Logger.getLogger(CredentialConfigService.class.getName()).log(Level.WARNING,
+			Logger.getLogger(ConfigService.class.getName()).log(Level.WARNING,
 					"config JSON not readable, creating empty config.");
 			configJSON = new JSONObject();
 		}
 
 	}
 
-	public String getConfig(String key) {
+	public Optional<String> getConfig(String key) {
 		try {
-			return configJSON.getString(key);
+			return Optional.of(configJSON.getString(key));
 		} catch (JSONException e) {
-			return null;
+			return Optional.empty();
 		}
 	}
 
@@ -85,9 +86,16 @@ public class CredentialConfigService implements SingletonService {
 			writer.flush();
 			writer.close();
 		} catch (IOException ex) {
-			Logger.getLogger(CredentialConfigService.class.getName()).log(Level.SEVERE,
+			Logger.getLogger(ConfigService.class.getName()).log(Level.SEVERE,
 					"Could not save Config to File.", ex);
 		}
 	}
+
+    @Override
+    public void close() {
+        saveConfigToFile();
+    }
+
+    
 
 }

@@ -37,7 +37,7 @@ public class TwitchChatBotService extends PircBot implements SingletonService{
     @Override
     protected void onJoin(String channel, String sender, String login, String hostname) {
         super.onJoin(channel, sender, login, hostname);
-        sendMessage(channelName, "Hello everyone, a testing bot here.");
+        sendMessage(channelName, "MarathonBot started.");
     }
     
     @Override

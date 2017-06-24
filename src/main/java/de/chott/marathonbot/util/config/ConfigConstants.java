@@ -11,6 +11,8 @@ package de.chott.marathonbot.util.config;
  */
 public class ConfigConstants {
     
-    public static final String TEST = "test";
+    public static final String TWITCH_USERNAME = "twitch_username";
+    public static final String TWITCH_OAUTH = "twitch_oauth";
+    public static final String TWITCH_CHANNEL = "twitch_channel";
     
 }
