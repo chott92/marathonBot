@@ -12,12 +12,6 @@ public class DashboardDataService implements SingletonService{
 
     private RunConfigTableEntry currentEntry;
     private RunConfigTableEntry nextEntry;
-    
-    private String wrCommandOutput;
-
-    public DashboardDataService(){
-        wrCommandOutput = "Kein run gesetzt.";
-    }
 
     public RunConfigTableEntry getCurrentEntry() {
         return currentEntry;
@@ -34,14 +28,5 @@ public class DashboardDataService implements SingletonService{
     public void setNextEntry(RunConfigTableEntry nextEntry) {
         this.nextEntry = nextEntry;
     }
-    
-    public String getWrCommandOutput() {
-        return wrCommandOutput;
-    }
-
-    public void setWrCommandOutput(String wrCommandOutput) {
-        this.wrCommandOutput = wrCommandOutput;
-    }
-    
     
 }
