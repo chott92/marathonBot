@@ -17,6 +17,8 @@ public class ConfigConstants {
     public static final String WR_COMMAND_TEMPLATE_NAME = "wr_command";
     public static final String TITLE_TEMPLATE_NAME = "title";
     
+    public static final String LAST_GAME_NAME = "last_game_name";
+    
     public static final String TEMPLATE_VARIABLE_GAME = "${game}";
     public static final String TEMPLATE_VARIABLE_RUNNER_NAME = "${runnerName}";
     public static final String TEMPLATE_VARIABLE_RUNNER_PB= "${runnerPB}";
@@ -24,4 +26,5 @@ public class ConfigConstants {
     public static final String TEMPLATE_VARIABLE_WR_HOLDER_NAME = "${wrHolderName}";
     public static final String TEMPLATE_VARIABLE_CATEGORY = "${category}";
     public static final String TEMPLATE_VARIABLE_SPEEDRUNCOM = "${speedrunComLink}";
+    
 }

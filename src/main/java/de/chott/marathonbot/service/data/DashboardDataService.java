@@ -7,11 +7,23 @@ package de.chott.marathonbot.service.data;
 
 import de.chott.marathonbot.model.RunConfigTableEntry;
 import de.chott.marathonbot.service.SingletonService;
+import de.chott.marathonbot.service.SingletonServiceFactory;
+import de.chott.marathonbot.service.config.ConfigService;
+import de.chott.marathonbot.util.config.ConfigConstants;
 
 public class DashboardDataService implements SingletonService{
-
+    
     private RunConfigTableEntry currentEntry;
     private RunConfigTableEntry nextEntry;
+
+    private ConfigService configService;
+    
+    public DashboardDataService() {
+        configService = SingletonServiceFactory.getInstance(ConfigService.class);
+        
+        currentEntry = SingletonServiceFactory.getInstance(RunConfigDataService.class)
+                .getForString(configService.getConfig(ConfigConstants.LAST_GAME_NAME).orElse("")).orElse(null);
+    }
 
     public RunConfigTableEntry getCurrentEntry() {
         return currentEntry;
@@ -28,5 +40,12 @@ public class DashboardDataService implements SingletonService{
     public void setNextEntry(RunConfigTableEntry nextEntry) {
         this.nextEntry = nextEntry;
     }
+
+    @Override
+    public void close() {
+       configService.setConfig(ConfigConstants.LAST_GAME_NAME, currentEntry.toString());
+    }
+    
+   
     
 }
