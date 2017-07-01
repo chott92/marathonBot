@@ -15,7 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.util.stream.Collectors.toList;
@@ -93,5 +95,13 @@ public class RunConfigDataService implements SingletonService {
     public ObservableList<RunConfigTableEntry> getData() {
         return data;
     }
+    
+    public Optional<RunConfigTableEntry> getForString(String input){
+        return data.stream().filter(byString(input)).findFirst();
+    }
 
+    private Predicate<RunConfigTableEntry> byString(String input){
+        return entry -> entry.toString().equals(input);
+    }
+    
 }
