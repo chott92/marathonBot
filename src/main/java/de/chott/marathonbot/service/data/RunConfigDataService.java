@@ -37,8 +37,23 @@ public class RunConfigDataService implements SingletonService {
 
 	}
 
+	public void addRun(RunConfigTableEntry entry) {
+		data.add(entry);
+	}
+
+	public void deleteRun(RunConfigTableEntry entry) {
+		data.remove(entry);
+		if (entry.getId() != null) {
+			runConfigService.remove(new RunConfig(entry));
+		}
+	}
+
 	@Override
 	public void close() {
+		save();
+	}
+
+	public void save() {
 		data.forEach(entry -> runConfigService.save(new RunConfig(entry)));
 	}
 

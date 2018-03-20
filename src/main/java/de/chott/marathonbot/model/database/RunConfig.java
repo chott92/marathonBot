@@ -1,34 +1,36 @@
 package de.chott.marathonbot.model.database;
 
 import de.chott.marathonbot.model.ui.RunConfigTableEntry;
-import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name = RunConfig.FIND_ALL, query = "SELECT rc FROM RunConfic rc")
+	@NamedQuery(name = RunConfig.FIND_ALL, query = "SELECT rc FROM RunConfig rc")
 })
-public class RunConfig implements Serializable {
+@Table(name = "run_config")
+public class RunConfig extends AbstractEntity {
 
 	private static final long serialVersionUID = 273490827349082374L;
 
 	public static final String FIND_ALL = "RunConfig.findAll";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
+	@Column(name = "game")
 	private String game;
+	@Column(name = "runner_name")
 	private String runnerName;
+	@Column(name = "wr_time")
 	private String wrTime;
+	@Column(name = "runner_pb")
 	private String runnerPB;
+	@Column(name = "wr_holder_name")
 	private String wrHolderName;
+	@Column(name = "category")
 	private String category;
+	@Column(name = "speedrun_com_link")
 	private String speedrunComLink;
 
 	public RunConfig() {
@@ -54,7 +56,7 @@ public class RunConfig implements Serializable {
 		this.category = entry.getCategory();
 		this.speedrunComLink = entry.getSpeedrunComLink();
 
-		entry.getId().ifPresent(entryId -> this.id = entryId);
+		entry.getId().ifPresent(entryId -> setId(entryId));
 	}
 
 	public static long getSerialVersionUID() {
@@ -87,10 +89,6 @@ public class RunConfig implements Serializable {
 
 	public String getSpeedrunComLink() {
 		return speedrunComLink;
-	}
-
-	public long getId() {
-		return id;
 	}
 
 }

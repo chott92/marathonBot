@@ -50,9 +50,9 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.zsoltfabok/sqlite-dialect -->
 		<dependency>
-			<groupId>com.zsoltfabok</groupId>
-			<artifactId>sqlite-dialect</artifactId>
-			<version>1.0</version>
+			<groupId>com.enigmabridge</groupId>
+			<artifactId>hibernate4-sqlite-dialect</artifactId>
+			<version>0.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>

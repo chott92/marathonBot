@@ -9,9 +9,11 @@ import javax.persistence.EntityManager;
 public class RunConfigService implements SingletonService {
 
 	private EntityManager em;
+	private DatabaseService databaseService;
 
 	public RunConfigService() {
-		em = SingletonServiceFactory.getInstance(DatabaseService.class).getEntityManager();
+		databaseService = SingletonServiceFactory.getInstance(DatabaseService.class);
+		em = databaseService.getEntityManager();
 	}
 
 	public List<RunConfig> loadAll() {
@@ -20,7 +22,11 @@ public class RunConfigService implements SingletonService {
 	}
 
 	public RunConfig save(RunConfig rc) {
-		return em.merge(rc);
+		return databaseService.merge(rc);
+	}
+
+	public void remove(RunConfig rc) {
+		databaseService.remove(rc);
 	}
 
 }
