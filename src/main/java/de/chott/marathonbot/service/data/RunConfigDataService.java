@@ -7,7 +7,7 @@ package de.chott.marathonbot.service.data;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.chott.marathonbot.model.RunConfigTableEntry;
+import de.chott.marathonbot.model.ui.RunConfigTableEntry;
 import de.chott.marathonbot.service.SingletonService;
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.util.UtilService;

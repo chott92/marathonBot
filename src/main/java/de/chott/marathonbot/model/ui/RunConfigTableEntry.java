@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.chott.marathonbot.model;
+package de.chott.marathonbot.model.ui;
 
 import javafx.beans.property.SimpleStringProperty;
 

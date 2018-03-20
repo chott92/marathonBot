@@ -5,7 +5,7 @@
  */
 package de.chott.marathonbot.controller;
 
-import de.chott.marathonbot.model.RunConfigTableEntry;
+import de.chott.marathonbot.model.ui.RunConfigTableEntry;
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.data.RunConfigDataService;
 import de.chott.marathonbot.service.util.UtilService;

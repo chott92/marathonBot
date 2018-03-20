@@ -1,7 +1,7 @@
 package de.chott.marathonbot.service.template;
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
-import de.chott.marathonbot.model.RunConfigTableEntry;
+import de.chott.marathonbot.model.ui.RunConfigTableEntry;
 import de.chott.marathonbot.service.SingletonService;
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.config.ConfigService;
