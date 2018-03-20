@@ -21,4 +21,13 @@ public class DatabaseService implements SingletonService {
 		entityManagerFactory.close();
 	}
 
+	@Override
+	public int getClosingIndex() {
+		return 1000;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
 }

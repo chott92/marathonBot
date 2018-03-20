@@ -4,6 +4,7 @@
  */
 package de.chott.marathonbot.service;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -31,9 +32,11 @@ public class SingletonServiceFactory {
 		}
 	}
 
-        
-        public static void closeServices(){
-            INSTANCES.values().forEach(SingletonService::close);
-        }
-                
+	public static void closeServices() {
+		INSTANCES.values()
+				.stream()
+				.sorted(Comparator.comparing(instance -> instance.getClosingIndex()))
+				.forEach(SingletonService::close);
+	}
+
 }

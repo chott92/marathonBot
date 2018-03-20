@@ -34,7 +34,8 @@ public class RunConfig implements Serializable {
 	public RunConfig() {
 	}
 
-	public RunConfig(String game, String runnerName, String wrTime, String runnerPB, String wrHolderName, String category, String speedrunComLink) {
+	public RunConfig(String game, String runnerName, String wrTime, String runnerPB,
+			String wrHolderName, String category, String speedrunComLink) {
 		this.game = game;
 		this.runnerName = runnerName;
 		this.wrTime = wrTime;
@@ -52,6 +53,8 @@ public class RunConfig implements Serializable {
 		this.runnerPB = entry.getRunnerPB();
 		this.category = entry.getCategory();
 		this.speedrunComLink = entry.getSpeedrunComLink();
+
+		entry.getId().ifPresent(entryId -> this.id = entryId);
 	}
 
 	public static long getSerialVersionUID() {
@@ -84,6 +87,10 @@ public class RunConfig implements Serializable {
 
 	public String getSpeedrunComLink() {
 		return speedrunComLink;
+	}
+
+	public long getId() {
+		return id;
 	}
 
 }

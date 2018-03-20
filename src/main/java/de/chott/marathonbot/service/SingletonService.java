@@ -6,8 +6,11 @@ package de.chott.marathonbot.service;
 
 public interface SingletonService {
 
-    default void close(){
-        
-    }
-    
+	default void close() {
+
+	}
+
+	default int getClosingIndex() {
+		return 0;
+	}
 }
