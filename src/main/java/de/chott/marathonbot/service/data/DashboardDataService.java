@@ -10,42 +10,43 @@ import de.chott.marathonbot.service.SingletonService;
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.config.ConfigService;
 import de.chott.marathonbot.util.config.ConfigConstants;
+import java.util.Optional;
 
-public class DashboardDataService implements SingletonService{
-    
-    private RunConfigTableEntry currentEntry;
-    private RunConfigTableEntry nextEntry;
+public class DashboardDataService implements SingletonService {
 
-    private ConfigService configService;
-    
-    public DashboardDataService() {
-        configService = SingletonServiceFactory.getInstance(ConfigService.class);
-        
-        currentEntry = SingletonServiceFactory.getInstance(RunConfigDataService.class)
-                .getForString(configService.getConfig(ConfigConstants.LAST_GAME_NAME).orElse("")).orElse(null);
-    }
+	private RunConfigTableEntry currentEntry;
+	private RunConfigTableEntry nextEntry;
 
-    public RunConfigTableEntry getCurrentEntry() {
-        return currentEntry;
-    }
+	private ConfigService configService;
 
-    public void setCurrentEntry(RunConfigTableEntry currentEntry) {
-        this.currentEntry = currentEntry;
-    }
+	public DashboardDataService() {
+		configService = SingletonServiceFactory.getInstance(ConfigService.class);
 
-    public RunConfigTableEntry getNextEntry() {
-        return nextEntry;
-    }
+		currentEntry = SingletonServiceFactory.getInstance(RunConfigDataService.class)
+				.getForString(configService.getConfig(ConfigConstants.LAST_GAME_NAME).orElse("")).orElse(null);
+	}
 
-    public void setNextEntry(RunConfigTableEntry nextEntry) {
-        this.nextEntry = nextEntry;
-    }
+	public RunConfigTableEntry getCurrentEntry() {
+		return currentEntry;
+	}
 
-    @Override
-    public void close() {
-       configService.setConfig(ConfigConstants.LAST_GAME_NAME, currentEntry.toString());
-    }
-    
-   
-    
+	public void setCurrentEntry(RunConfigTableEntry currentEntry) {
+		this.currentEntry = currentEntry;
+	}
+
+	public RunConfigTableEntry getNextEntry() {
+		return nextEntry;
+	}
+
+	public void setNextEntry(RunConfigTableEntry nextEntry) {
+		this.nextEntry = nextEntry;
+	}
+
+	@Override
+	public void close() {
+		if (Optional.ofNullable(currentEntry).isPresent()) {
+			configService.setConfig(ConfigConstants.LAST_GAME_NAME, currentEntry.toString());
+		}
+	}
+
 }
