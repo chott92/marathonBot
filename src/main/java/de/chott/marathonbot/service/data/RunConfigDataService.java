@@ -6,12 +6,11 @@ import de.chott.marathonbot.service.SingletonService;
 import de.chott.marathonbot.service.SingletonServiceFactory;
 
 import de.chott.marathonbot.service.database.RunConfigService;
-import java.util.function.Predicate;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class RunConfigDataService implements SingletonService {
-
 
 	private final ObservableList<RunConfigTableEntry> data;
 	private RunConfigService runConfigService;
@@ -62,6 +61,12 @@ public class RunConfigDataService implements SingletonService {
 
 	public ObservableList<RunConfigTableEntry> getData() {
 		return data;
-    }
+	}
+
+	Optional<RunConfigTableEntry> getForString(String name) {
+		return data.stream()
+				.filter(entry -> entry.toString().equals(name))
+				.findAny();
+	}
 
 }
