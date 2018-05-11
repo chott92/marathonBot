@@ -2,6 +2,7 @@ package de.chott.marathonbot.service.database;
 
 import de.chott.marathonbot.model.database.Event;
 import de.chott.marathonbot.service.SingletonService;
+import de.chott.marathonbot.service.SingletonServiceFactory;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
@@ -11,9 +12,9 @@ public class EventService implements SingletonService {
 	private EntityManager em;
 	private DatabaseService databaseService;
 
-	public EventService(EntityManager em, DatabaseService databaseService) {
-		this.em = em;
-		this.databaseService = databaseService;
+	public EventService() {
+		databaseService = SingletonServiceFactory.getInstance(DatabaseService.class);
+		em = databaseService.getEntityManager();
 	}
 
 	public List<String> loadEventNames() {

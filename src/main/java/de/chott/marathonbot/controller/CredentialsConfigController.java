@@ -6,6 +6,8 @@ package de.chott.marathonbot.controller;
 
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.config.ConfigService;
+import de.chott.marathonbot.service.data.DashboardDataService;
+import de.chott.marathonbot.service.database.EventService;
 import de.chott.marathonbot.service.twitch.TwitchChatBotService;
 import de.chott.marathonbot.service.util.UtilService;
 import static de.chott.marathonbot.util.config.ConfigConstants.*;
@@ -36,12 +38,16 @@ public class CredentialsConfigController implements Initializable {
 	private TitledPane x1;
 	@FXML
 	private Button startButton;
+	@FXML
+	private TextField eventName;
 
 	ConfigService configService;
+	EventService eventService;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		configService = SingletonServiceFactory.getInstance(ConfigService.class);
+		eventService = SingletonServiceFactory.getInstance(EventService.class);
 
 		twitchUsername.setText(configService.getConfig(TWITCH_USERNAME).orElse(""));
 		twitchOauth.setText(configService.getConfig(TWITCH_OAUTH).orElse(""));
@@ -50,6 +56,8 @@ public class CredentialsConfigController implements Initializable {
 
 	@FXML
 	private void startBots(ActionEvent event) {
+		SingletonServiceFactory.getInstance(DashboardDataService.class)
+				.setEvent(eventService.findOrCreateByName(eventName.getText()));
 
 		configService.setConfig(TWITCH_USERNAME, twitchUsername.getText());
 		configService.setConfig(TWITCH_OAUTH, twitchOauth.getText());

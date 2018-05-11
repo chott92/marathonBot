@@ -5,6 +5,7 @@
  */
 package de.chott.marathonbot.service.data;
 
+import de.chott.marathonbot.model.database.Event;
 import de.chott.marathonbot.model.ui.RunConfigTableEntry;
 import de.chott.marathonbot.service.SingletonService;
 import de.chott.marathonbot.service.SingletonServiceFactory;
@@ -16,6 +17,8 @@ public class DashboardDataService implements SingletonService {
 
 	private RunConfigTableEntry currentEntry;
 	private RunConfigTableEntry nextEntry;
+
+	private Event event;
 
 	private ConfigService configService;
 
@@ -40,6 +43,14 @@ public class DashboardDataService implements SingletonService {
 
 	public void setNextEntry(RunConfigTableEntry nextEntry) {
 		this.nextEntry = nextEntry;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public Event getEvent() {
+		return event;
 	}
 
 	@Override

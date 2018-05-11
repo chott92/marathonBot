@@ -35,11 +35,11 @@ public class MainApp extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-        
-        @Override
-        public void stop(){
-            SingletonServiceFactory.closeServices();
-            System.exit(0);
-        }
+
+	@Override
+	public void stop() {
+		SingletonServiceFactory.closeServices();
+		System.exit(0);
+	}
 
 }
