@@ -34,6 +34,8 @@ public class CredentialsConfigController implements Initializable {
 	private TitledPane x2;
 	@FXML
 	private PasswordField discordOAuth;
+	@FXML
+	private TextField discordChannel;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -43,6 +45,7 @@ public class CredentialsConfigController implements Initializable {
 		twitchOauth.setText(configService.getConfig(TWITCH_OAUTH).orElse(""));
 		twitchChannel.setText(configService.getConfig(TWITCH_CHANNEL).orElse(""));
 		discordOAuth.setText(configService.getConfig(DISCORD_OAUTH).orElse(""));
+		discordChannel.setText(configService.getConfig(DISCORD_CHANNEL).orElse(""));
 	}
 
 	@FXML
@@ -52,6 +55,7 @@ public class CredentialsConfigController implements Initializable {
 		configService.setConfig(TWITCH_OAUTH, twitchOauth.getText());
 		configService.setConfig(TWITCH_CHANNEL, twitchChannel.getText());
 		configService.setConfig(DISCORD_OAUTH, discordOAuth.getText());
+		configService.setConfig(DISCORD_CHANNEL, discordChannel.getText());
 
 		try {
 			SingletonServiceFactory.getInstance(TwitchChatBotService.class)
@@ -60,7 +64,7 @@ public class CredentialsConfigController implements Initializable {
 							twitchChannel.getText());
 
 			SingletonServiceFactory.getInstance(DiscordChatBotService.class)
-					.startBot(discordOAuth.getText(), "");
+					.startBot(discordOAuth.getText(), discordChannel.getText());
 
 			SingletonServiceFactory.getInstance(UtilService.class).switchScene(startButton, "/fxml/Dashboard.fxml");
 		} catch (Exception e) {

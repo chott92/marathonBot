@@ -11,6 +11,7 @@ public class ConfigConstants {
 	public static final String TWITCH_CHANNEL = "twitch_channel";
 
 	public static final String DISCORD_OAUTH = "discord_oauth";
+	public static final String DISCORD_CHANNEL = "discord_channel";
 
 	public static final String WR_COMMAND_TEMPLATE_NAME = "wr_command";
 	public static final String TITLE_TEMPLATE_NAME = "title";
