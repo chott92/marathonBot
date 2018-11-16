@@ -34,12 +34,15 @@
                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
                       <children>
                         <Label layoutX="14.0" layoutY="14.0" text="Next Game" />
-                        <TextField fx:id="nextGameInput" layoutX="14.0" layoutY="30.0" prefWidth="238.0" />
+                        <TextField fx:id="nextGameInput" layoutX="13.0" layoutY="30.0" prefWidth="239.0" />
                         <Label layoutX="16.0" layoutY="62.0" text="Next Title" />
-                        <TextField fx:id="nextTitleInput" layoutX="16.0" layoutY="78.0" prefWidth="236.0" />
+                        <TextField fx:id="nextTitleInput" layoutX="13.0" layoutY="78.0" prefWidth="239.0" />
                         <Label id="nextWRInput" layoutX="16.0" layoutY="110.0" text="Next WR Command" />
-                        <TextField fx:id="nextWRInput" layoutX="16.0" layoutY="126.0" prefWidth="236.0" />
+                        <TextField fx:id="nextWRInput" layoutX="13.0" layoutY="126.0" prefWidth="239.0" />
                         <CheckBox fx:id="ffzFollowUpdate" layoutX="14.0" layoutY="168.0" mnemonicParsing="false" text="Update FFZ-follow" />
+                        <CheckBox fx:id="sendDiscordNotification" layoutX="14.0" layoutY="184.0" mnemonicParsing="false" text="Send Discord Notification" />
+                        <Label layoutX="16.0" layoutY="206.0" text="Discord Notification:" />
+                        <TextField fx:id="discordNotificationText" layoutX="13.0" layoutY="222.0" prefWidth="239.0" />
                       </children>
                     </AnchorPane>
                   </children>
@@ -63,10 +66,12 @@
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <Label layoutX="14.0" layoutY="14.0" text="Twitch Title" />
-                <Label layoutX="14.0" layoutY="195.0" text="WR Command" />
-                <TextArea fx:id="twitchTitleTemplate" layoutX="14.0" layoutY="30.0" prefHeight="165.0" prefWidth="758.0" wrapText="true" />
-                <TextArea fx:id="wrCommandTemplate" layoutX="14.0" layoutY="211.0" prefHeight="150.0" prefWidth="758.0" wrapText="true" />
+                <Label layoutX="14.0" layoutY="120.0" text="WR Command" />
+                <TextArea fx:id="twitchTitleTemplate" layoutX="14.0" layoutY="30.0" prefHeight="90.0" prefWidth="758.0" wrapText="true" />
+                <TextArea fx:id="wrCommandTemplate" layoutX="14.0" layoutY="136.0" prefHeight="90.0" prefWidth="759.0" wrapText="true" />
+                <Label layoutX="16.0" layoutY="226.0" text="Discord Notification" />
                 <Button id="save" fx:id="saveTemplatesButton" layoutX="664.0" layoutY="361.0" mnemonicParsing="false" onAction="#changeTemplates" prefWidth="108.0" text="Save and use" />
+                <TextArea fx:id="discordNotificationTemplate" layoutX="16.0" layoutY="242.0" prefHeight="90.0" prefWidth="759.0" wrapText="true" />
               </children>
             </AnchorPane>
           </content>
