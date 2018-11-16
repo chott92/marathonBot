@@ -11,10 +11,6 @@ public class MainApp extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		String path = MainApp.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-
-		System.out.println(path);
-
 		Parent root = FXMLLoader.load(getClass().getResource("/fxml/CredentialsConfig.fxml"));
 
 		Scene scene = new Scene(root);
@@ -35,11 +31,11 @@ public class MainApp extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-        
-        @Override
-        public void stop(){
-            SingletonServiceFactory.closeServices();
-            System.exit(0);
-        }
+
+	@Override
+	public void stop() {
+		SingletonServiceFactory.closeServices();
+		System.exit(0);
+	}
 
 }
