@@ -18,59 +18,45 @@ import org.pircbotx.hooks.managers.BackgroundListenerManager;
 
 public class TwitchChatBotService implements SingletonService {
 
-    private String channelName = "";
+	private String channelName = "";
+	private BotRunnable bot;
+	private Thread botThread;
 
-    private TemplateService templateService;
-    private DashboardDataService dataService;
+	public void startBot(String username, String oauth, String channel) throws Exception {
 
-    BotRunnable bot;
-    Thread botThread;
+		BackgroundListenerManager manager = new BackgroundListenerManager();
+		manager.addListener(new WrCommandListener(), true);
 
-    public TwitchChatBotService() {
+		channelName = "#" + channel;
 
-        templateService = SingletonServiceFactory.getInstance(TemplateService.class);
-        dataService = SingletonServiceFactory.getInstance(DashboardDataService.class);
-    }
+		Configuration config = new Configuration.Builder()
+				.setAutoNickChange(false)
+				.setOnJoinWhoEnabled(false)
+				.setCapEnabled(true)
+				.addCapHandler(new EnableCapHandler("twitch.tv/membership"))
+				.setEncoding(Charset.forName("UTF-8"))
+				.addServer("irc.twitch.tv", 6667)
+				.setName(username) //Your twitch.tv username
+				.setServerPassword(oauth) //Your oauth password from http://twitchapps.com/tmi
+				.addAutoJoinChannel(channelName) //Some twitch channel
+				.setListenerManager(manager)
+				.buildConfiguration();
 
-    public void startBot(String username, String oauth, String channel) throws Exception {
+		PircBotX chatBot = new PircBotX(config);
 
-        BackgroundListenerManager manager = new BackgroundListenerManager();
-        manager.addListener(new WrCommandListener(), true);
-        
-        channelName = "#" +channel;
-        
-        
-        
-        Configuration config = new Configuration.Builder()
-                .setAutoNickChange(false)
-                .setOnJoinWhoEnabled(false)
-                .setCapEnabled(true)
-                .addCapHandler(new EnableCapHandler("twitch.tv/membership")) 
-                .setEncoding(Charset.forName("UTF-8"))
-                
-                .addServer("irc.twitch.tv", 6667)
-                .setName(username) //Your twitch.tv username
-                .setServerPassword(oauth) //Your oauth password from http://twitchapps.com/tmi
-                .addAutoJoinChannel(channelName) //Some twitch channel
-                .setListenerManager(manager)
-                
-                .buildConfiguration();
-        
-        PircBotX chatBot = new PircBotX(config);
-        
-        bot = new BotRunnable(chatBot);
-        
-        botThread = new Thread(bot);
-        botThread.start();
-        
-    }
+		bot = new BotRunnable(chatBot);
 
-    public void sendMessage(String message) {
-        bot.sendMessage(channelName, message);
-    }
+		botThread = new Thread(bot);
+		botThread.start();
 
-    @Override
-    public void close() {
-        botThread.stop();
-    }
+	}
+
+	public void sendMessage(String message) {
+		bot.sendMessage(channelName, message);
+	}
+
+	@Override
+	public void close() {
+		botThread.stop();
+	}
 }

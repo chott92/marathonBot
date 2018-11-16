@@ -59,13 +59,12 @@ public class CredentialsConfigController implements Initializable {
 							twitchOauth.getText(),
 							twitchChannel.getText());
 
+			SingletonServiceFactory.getInstance(DiscordChatBotService.class)
+					.startBot(discordOAuth.getText(), "");
+
 			SingletonServiceFactory.getInstance(UtilService.class).switchScene(startButton, "/fxml/Dashboard.fxml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		SingletonServiceFactory.getInstance(DiscordChatBotService.class)
-				.startBot(discordOAuth.getText());
 	}
-
 }
