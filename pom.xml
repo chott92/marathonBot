@@ -33,6 +33,11 @@
 			<artifactId>javacord-api</artifactId>
 			<version>3.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.javacord</groupId>
+			<artifactId>javacord-core</artifactId>
+			<version>3.0.1</version>
+		</dependency>
 
 
 		<!-- JSON libraries -->
@@ -51,13 +56,13 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.2.12.Final</version>
+			<version>5.3.7.Final</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
-			<version>3.20.1</version>
+			<version>3.25.2</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.zsoltfabok/sqlite-dialect -->
@@ -69,7 +74,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.2.15.Final</version>
+			<version>5.3.7.Final</version>
 		</dependency>
 	</dependencies>
 

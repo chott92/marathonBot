@@ -2,6 +2,7 @@ package de.chott.marathonbot.controller;
 
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.config.ConfigService;
+import de.chott.marathonbot.service.discord.DiscordChatBotService;
 import de.chott.marathonbot.service.twitch.TwitchChatBotService;
 import de.chott.marathonbot.service.util.UtilService;
 import static de.chott.marathonbot.util.config.ConfigConstants.*;
@@ -63,6 +64,8 @@ public class CredentialsConfigController implements Initializable {
 			e.printStackTrace();
 		}
 
+		SingletonServiceFactory.getInstance(DiscordChatBotService.class)
+				.startBot(discordOAuth.getText());
 	}
 
 }
