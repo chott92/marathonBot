@@ -20,12 +20,22 @@
 	</organization>
 
 	<dependencies>
+		<!-- Twitch Chat Bot API -->
 		<dependency>
 			<groupId>org.pircbotx</groupId>
 			<artifactId>pircbotx</artifactId>
 			<version>2.1</version>
 		</dependency>
 
+		<!-- Discord Bot API -->
+		<dependency>
+			<groupId>org.javacord</groupId>
+			<artifactId>javacord-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
+
+		<!-- JSON libraries -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -36,6 +46,8 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.8.8.1</version>
 		</dependency>
+
+		<!-- Database -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>

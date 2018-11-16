@@ -19,11 +19,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 
-/**
- * FXML Controller class
- *
- * @author chot
- */
 public class CredentialsConfigController implements Initializable {
 
 	@FXML
@@ -38,6 +33,10 @@ public class CredentialsConfigController implements Initializable {
 	private Button startButton;
 
 	ConfigService configService;
+	@FXML
+	private TitledPane x2;
+	@FXML
+	private PasswordField discordOAuth;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -46,6 +45,7 @@ public class CredentialsConfigController implements Initializable {
 		twitchUsername.setText(configService.getConfig(TWITCH_USERNAME).orElse(""));
 		twitchOauth.setText(configService.getConfig(TWITCH_OAUTH).orElse(""));
 		twitchChannel.setText(configService.getConfig(TWITCH_CHANNEL).orElse(""));
+		discordOAuth.setText(configService.getConfig(DISCORD_OAUTH).orElse(""));
 	}
 
 	@FXML
@@ -54,6 +54,7 @@ public class CredentialsConfigController implements Initializable {
 		configService.setConfig(TWITCH_USERNAME, twitchUsername.getText());
 		configService.setConfig(TWITCH_OAUTH, twitchOauth.getText());
 		configService.setConfig(TWITCH_CHANNEL, twitchChannel.getText());
+		configService.setConfig(DISCORD_OAUTH, discordOAuth.getText());
 
 		try {
 			SingletonServiceFactory.getInstance(TwitchChatBotService.class)
