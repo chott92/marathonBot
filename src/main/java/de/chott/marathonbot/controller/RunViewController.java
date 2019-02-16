@@ -66,6 +66,8 @@ public class RunViewController implements Initializable {
 	private Button toDasboardButton;
 
 	RunConfigDataService dataService;
+	@FXML
+	private Button toImportButton;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -111,6 +113,7 @@ public class RunViewController implements Initializable {
 				speedrunComInput.getText());
 
 		dataService.addRun(entry);
+		dataService.save(entry);
 
 		clearTextFields();
 	}
@@ -119,6 +122,15 @@ public class RunViewController implements Initializable {
 	private void toDashboard(ActionEvent event) {
 		try {
 			SingletonServiceFactory.getInstance(UtilService.class).switchScene(toDasboardButton, "/fxml/Dashboard.fxml");
+		} catch (IOException ex) {
+			Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@FXML
+	private void toImportScreen(ActionEvent event) {
+		try {
+			SingletonServiceFactory.getInstance(UtilService.class).switchScene(toImportButton, "/fxml/GoogleImport.fxml");
 		} catch (IOException ex) {
 			Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -135,4 +147,5 @@ public class RunViewController implements Initializable {
 		dataService.deleteRun(selectedItem);
 		runTable.getSelectionModel().clearSelection();
 	}
+
 }
