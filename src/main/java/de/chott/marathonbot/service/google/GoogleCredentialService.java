@@ -35,6 +35,7 @@ public class GoogleCredentialService implements SingletonService {
 	}
 
 	Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+
 		File file = new File(utilService.getAppFolderFilepath() + CREDENTIALS_FILE_PATH);
 
 		InputStream in = new FileInputStream(file);
@@ -47,6 +48,7 @@ public class GoogleCredentialService implements SingletonService {
 				.build();
 		LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
 		return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+
 	}
 
 }
