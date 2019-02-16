@@ -28,3 +28,7 @@ nbactions.xml
 sqlite.db
 config.json
 # End of https://www.gitignore.io/api/netbeans,maven
+
+### Google API config files ###
+google-credentials.json
+token/
