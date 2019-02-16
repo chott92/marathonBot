@@ -6,12 +6,14 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.ValueRange;
+import de.chott.marathonbot.model.ui.RunConfigTableEntry;
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.data.RunConfigDataService;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GoogleSheetsImportService {
 
@@ -27,6 +29,25 @@ public class GoogleSheetsImportService {
 
 	public void importDataFromGoogleSheet(String spreadsheetId, String sheetName) {
 		List<String[]> loadDataFromSheet = loadDataFromSheet(spreadsheetId, sheetName);
+
+		dataService.deleteAllRuns();
+
+		loadDataFromSheet.stream()
+				.skip(1)
+				.map(this::toConfigTableEntry)
+				.forEach(dataService::addRun);
+	}
+
+	private RunConfigTableEntry toConfigTableEntry(String[] row) {
+		String game = DataColumn.B.get(row);
+		String runnerName = DataColumn.E.get(row);
+		String wrTime = DataColumn.H.get(row);
+		String runnerPB = DataColumn.F.get(row);
+		String wrHolderName = DataColumn.I.get(row);
+		String category = DataColumn.C.get(row);
+		String speedrunComLink = DataColumn.D.get(row);
+
+		return new RunConfigTableEntry(game, runnerName, wrTime, runnerPB, wrHolderName, category, speedrunComLink);
 	}
 
 	private List<String[]> loadDataFromSheet(String spreadsheetId, String sheetName) {

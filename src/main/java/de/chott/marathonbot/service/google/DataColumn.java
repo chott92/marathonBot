@@ -1,6 +1,8 @@
 package de.chott.marathonbot.service.google;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
+import org.apache.commons.lang3.StringUtils;
 
 public enum DataColumn {
 
@@ -18,5 +20,13 @@ public enum DataColumn {
 
 	public Function<String[], String> get() {
 		return this::get;
+	}
+
+	public boolean isBlank(String[] row) {
+		return StringUtils.isBlank(row[index]);
+	}
+
+	public Predicate<String[]> isBlank() {
+		return this::isBlank;
 	}
 }

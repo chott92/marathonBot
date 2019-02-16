@@ -6,6 +6,8 @@ import de.chott.marathonbot.service.SingletonService;
 import de.chott.marathonbot.service.SingletonServiceFactory;
 
 import de.chott.marathonbot.service.database.RunConfigService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,6 +50,10 @@ public class RunConfigDataService implements SingletonService {
 		if (entry.getId() != null) {
 			runConfigService.remove(new RunConfig(entry));
 		}
+	}
+
+	public void deleteAllRuns() {
+		new ArrayList<RunConfigTableEntry>(data).forEach(this::deleteRun);
 	}
 
 	@Override
