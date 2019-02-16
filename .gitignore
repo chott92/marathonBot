@@ -31,4 +31,4 @@ config.json
 
 ### Google API config files ###
 google-credentials.json
-token/
+tokens/

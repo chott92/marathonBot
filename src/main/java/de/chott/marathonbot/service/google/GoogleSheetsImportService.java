@@ -7,6 +7,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import de.chott.marathonbot.model.ui.RunConfigTableEntry;
+import de.chott.marathonbot.service.SingletonService;
 import de.chott.marathonbot.service.SingletonServiceFactory;
 import de.chott.marathonbot.service.data.RunConfigDataService;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GoogleSheetsImportService {
+public class GoogleSheetsImportService implements SingletonService {
 
 	private static final String APPLICATION_NAME = "Germench MarathonBot";
 
@@ -34,8 +35,10 @@ public class GoogleSheetsImportService {
 
 		loadDataFromSheet.stream()
 				.skip(1)
+				.filter(DataColumn.B.isBlank().negate())
 				.map(this::toConfigTableEntry)
 				.forEach(dataService::addRun);
+		dataService.save();
 	}
 
 	private RunConfigTableEntry toConfigTableEntry(String[] row) {

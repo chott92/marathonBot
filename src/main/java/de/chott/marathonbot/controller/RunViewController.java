@@ -66,6 +66,8 @@ public class RunViewController implements Initializable {
 	private Button toDasboardButton;
 
 	RunConfigDataService dataService;
+	@FXML
+	private Button toImportButton;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -124,6 +126,15 @@ public class RunViewController implements Initializable {
 		}
 	}
 
+	@FXML
+	private void toImportScreen(ActionEvent event) {
+		try {
+			SingletonServiceFactory.getInstance(UtilService.class).switchScene(toImportButton, "/fxml/GoogleImport.fxml");
+		} catch (IOException ex) {
+			Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
 	private void clearTextFields() {
 		Arrays.asList(gameInput, runnerPBInput, runnerNameInput, wrTimeInput, wrHolderNameInput,
 				categoryInput, speedrunComInput).forEach(field -> field.setText(""));
@@ -135,4 +146,5 @@ public class RunViewController implements Initializable {
 		dataService.deleteRun(selectedItem);
 		runTable.getSelectionModel().clearSelection();
 	}
+
 }

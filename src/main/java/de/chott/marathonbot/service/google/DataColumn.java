@@ -15,7 +15,11 @@ public enum DataColumn {
 	}
 
 	public String get(String[] row) {
-		return row[index].trim();
+		if (row.length > index) {
+			return row[index].trim();
+		} else {
+			return "";
+		}
 	}
 
 	public Function<String[], String> get() {
@@ -23,7 +27,7 @@ public enum DataColumn {
 	}
 
 	public boolean isBlank(String[] row) {
-		return StringUtils.isBlank(row[index]);
+		return StringUtils.isBlank(get(row));
 	}
 
 	public Predicate<String[]> isBlank() {
