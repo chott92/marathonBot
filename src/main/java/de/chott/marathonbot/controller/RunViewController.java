@@ -113,6 +113,7 @@ public class RunViewController implements Initializable {
 				speedrunComInput.getText());
 
 		dataService.addRun(entry);
+		dataService.save(entry);
 
 		clearTextFields();
 	}

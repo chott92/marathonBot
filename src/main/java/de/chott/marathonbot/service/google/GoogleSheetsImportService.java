@@ -31,14 +31,13 @@ public class GoogleSheetsImportService implements SingletonService {
 	public void importDataFromGoogleSheet(String spreadsheetId, String sheetName) {
 		List<String[]> loadDataFromSheet = loadDataFromSheet(spreadsheetId, sheetName);
 
-		dataService.deleteAllRuns();
-
-		loadDataFromSheet.stream()
+		List<RunConfigTableEntry> tableEntries = loadDataFromSheet.stream()
 				.skip(1)
 				.filter(DataColumn.B.isBlank().negate())
 				.map(this::toConfigTableEntry)
-				.forEach(dataService::addRun);
-		dataService.save();
+				.collect(Collectors.toList());
+
+		dataService.replaceData(tableEntries);
 	}
 
 	private RunConfigTableEntry toConfigTableEntry(String[] row) {
