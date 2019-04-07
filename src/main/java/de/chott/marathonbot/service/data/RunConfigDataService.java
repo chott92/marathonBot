@@ -6,7 +6,10 @@ import de.chott.marathonbot.service.SingletonService;
 import de.chott.marathonbot.service.SingletonServiceFactory;
 
 import de.chott.marathonbot.service.database.RunConfigService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -50,6 +53,20 @@ public class RunConfigDataService implements SingletonService {
 		}
 	}
 
+	public void deleteAllRuns() {
+		new ArrayList<RunConfigTableEntry>(data).forEach(this::deleteRun);
+	}
+
+	public void replaceData(List<RunConfigTableEntry> tableEntries) {
+		deleteAllRuns();
+		List<RunConfigTableEntry> persistedEntries = tableEntries.stream()
+				.map(this::save)
+				.collect(Collectors.toList());
+		data.clear();
+		data.addAll(persistedEntries);
+
+	}
+
 	@Override
 	public void close() {
 		save();
@@ -57,6 +74,11 @@ public class RunConfigDataService implements SingletonService {
 
 	public void save() {
 		data.forEach(entry -> runConfigService.save(new RunConfig(entry)));
+	}
+
+	public RunConfigTableEntry save(RunConfigTableEntry entry) {
+		RunConfig save = runConfigService.save(new RunConfig(entry));
+		return new RunConfigTableEntry(save);
 	}
 
 	public ObservableList<RunConfigTableEntry> getData() {
